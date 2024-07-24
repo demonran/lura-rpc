@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'java-library'
+}
+
+group = 'org.lura.rpc'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(project(':example-common'))
+    api(project(':lura-rpc-easy'))
+    implementation 'cn.hutool:hutool-all:5.8.25'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}

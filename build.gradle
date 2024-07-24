@@ -1,0 +1,23 @@
+plugins {
+    id 'idea'
+}
+
+group = 'org.lura.rpc'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+subprojects {
+
+    apply plugin: 'java'
+
+    dependencies {
+        implementation("org.projectlombok:lombok:1.18.20")
+        annotationProcessor("org.projectlombok:lombok:1.18.20")
+    }
+
+}
+
+

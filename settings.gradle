@@ -1,6 +1,6 @@
 rootProject.name = 'lura-rpc'
 include 'example-common'
 include 'example-provider'
-include 'example-comsumer'
-include 'lura-rpc-easy'
+include 'example-consumer'
+include 'lura-rpc-core'
 

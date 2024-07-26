@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation(project(':example-common'))
-    api project(':lura-rpc-easy')
+    api project(':lura-rpc-core')
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

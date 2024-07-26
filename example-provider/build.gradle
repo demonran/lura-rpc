@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation(project(':example-common'))
-    api(project(':lura-rpc-easy'))
+    api(project(':lura-rpc-core'))
     implementation 'cn.hutool:hutool-all:5.8.25'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'

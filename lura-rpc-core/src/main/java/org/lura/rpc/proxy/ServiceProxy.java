@@ -20,7 +20,7 @@ public class ServiceProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-//        Registry registry = RegistryFactory.getRegistry();
+        Registry registry = RegistryFactory.getRegistry();
 
         Serializer serializer = new JdkSerializer();
 
@@ -33,10 +33,10 @@ public class ServiceProxy implements InvocationHandler {
 
         byte[] bytes = serializer.serialize(rpcRequest);
 
-//        ServiceMetaInfo serviceMetaInfo = registry.lookup(rpcRequest.getServiceName());
+        ServiceMetaInfo serviceMetaInfo = registry.lookup(rpcRequest.getServiceName());
 
 
-        try (HttpResponse response = HttpRequest.post("http://localhost:8888")
+        try (HttpResponse response = HttpRequest.post(serviceMetaInfo.getServiceUrl())
                 .body(bytes)
                 .execute()) {
             RpcResponse rpcResponse = serializer.deserialize(response.bodyBytes(), RpcResponse.class);

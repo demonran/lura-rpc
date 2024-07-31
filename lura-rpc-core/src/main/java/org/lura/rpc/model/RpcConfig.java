@@ -6,4 +6,6 @@ import lombok.Data;
 public class RpcConfig {
 
     private String endpoints;
+
+    private String rpcFilePath = System.getProperty("user.home");
 }

@@ -3,9 +3,11 @@ package org.lura.rpc.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
-public class ServiceMetaInfo {
+public class ServiceMetaInfo implements Serializable {
 
     private String serviceName;
 

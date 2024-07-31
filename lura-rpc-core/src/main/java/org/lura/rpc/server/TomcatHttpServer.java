@@ -10,7 +10,9 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * TomcatHttpServer
@@ -23,6 +25,7 @@ public class TomcatHttpServer implements HttpServer {
     @Override
     public void doStart(int port) {
         Tomcat tomcat = new Tomcat();
+        tomcat.setBaseDir(createTempDir("tomcat." + port + ".").getAbsolutePath());
         tomcat.setPort(port);
         tomcat.getConnector();
         tomcat.setHostname("localhost");
@@ -39,6 +42,17 @@ public class TomcatHttpServer implements HttpServer {
             tomcat.getServer().await();
         } catch (LifecycleException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private File createTempDir(String prefix) {
+        try {
+            File tempDir = Files.createTempDirectory(prefix).toFile();
+            tempDir.deleteOnExit();
+            return tempDir;
+        } catch (IOException ex) {
+            throw new RuntimeException(
+                    "Unable to create tempDir. java.io.tmpdir is set to " + System.getProperty("java.io.tmpdir"), ex);
         }
     }
 }

@@ -3,16 +3,13 @@ package org.lura.rpc.provider;
 import cn.hutool.core.net.NetUtil;
 import org.lura.rpc.RpcApplication;
 import org.lura.rpc.common.service.UserService;
-import org.lura.rpc.model.RpcConfig;
 import org.lura.rpc.model.ServiceMetaInfo;
 import org.lura.rpc.model.ServiceRegistration;
-import org.lura.rpc.registry.EtcdRegistry;
-import org.lura.rpc.registry.LocalRegistry;
+import org.lura.rpc.registry.ServiceRegistry;
 import org.lura.rpc.registry.Registry;
 import org.lura.rpc.registry.RegistryFactory;
 import org.lura.rpc.server.HttpServer;
-import org.lura.rpc.server.VertxHttpServer;
-import org.lura.rpc.utls.ConfigUtils;
+import org.lura.rpc.server.TomcatHttpServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +30,7 @@ public class EasyProviderExample {
 
 
         serviceRegistrations.forEach(serviceRegistration -> {
-            LocalRegistry.INSTANCE.register(serviceRegistration.getServiceName(), serviceRegistration.getServiceClass());
+            ServiceRegistry.INSTANCE.register(serviceRegistration.getServiceName(), serviceRegistration.getServiceClass());
 
             ServiceMetaInfo serviceMetaInfo = new ServiceMetaInfo();
             serviceMetaInfo.setServiceName(serviceRegistration.getServiceName());
@@ -48,7 +45,7 @@ public class EasyProviderExample {
 
         });
 
-        HttpServer httpServer = new VertxHttpServer();
+        HttpServer httpServer = new TomcatHttpServer();
 
         httpServer.doStart(port);
     }

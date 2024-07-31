@@ -12,6 +12,8 @@ repositories {
 dependencies {
     implementation 'cn.hutool:hutool-all:5.8.25'
     implementation 'io.vertx:vertx-core:4.5.3'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-core:9.0.78'
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.106.Final'
     implementation 'io.etcd:jetcd-core:0.7.7'
     implementation 'org.yaml:snakeyaml:2.0'
     testImplementation platform('org.junit:junit-bom:5.10.0')

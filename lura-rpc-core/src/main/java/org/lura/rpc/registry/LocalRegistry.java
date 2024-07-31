@@ -1,23 +1,51 @@
 package org.lura.rpc.registry;
 
+import org.lura.rpc.loadbalance.LoadBalancer;
+import org.lura.rpc.loadbalance.RandomLoadBalancer;
+import org.lura.rpc.model.RpcConfig;
+import org.lura.rpc.model.ServiceMetaInfo;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class LocalRegistry {
+/**
+ * LocalRegisty
+ *
+ * @author Liu Ran
+ */
+public class LocalRegistry implements Registry {
 
-    public static final LocalRegistry INSTANCE = new LocalRegistry();
+    private final Map<String, List<ServiceMetaInfo>> map = new HashMap<>();
+    private final LoadBalancer lb = new RandomLoadBalancer();
 
-    private final Map<String, Class<?>> services = new HashMap<>();
+    @Override
+    public void init(RpcConfig config) {
 
-    public void register(String serviceName, Class<?> serviceClazz) {
-        services.put(serviceName, serviceClazz);
     }
 
-    public Class<?> lookup(String serviceName) {
-        return services.get(serviceName);
+    @Override
+    public void register(ServiceMetaInfo serviceMetaInfo) throws Exception {
+
+        List<ServiceMetaInfo> serviceMetaInfos = map.getOrDefault(serviceMetaInfo.getServiceName(), new ArrayList<>());
+        serviceMetaInfos.add(serviceMetaInfo);
     }
 
-    public void unregister(String serviceName) {
-        services.remove(serviceName);
+    @Override
+    public ServiceMetaInfo lookup(String serviceName) {
+        List<ServiceMetaInfo> serviceMetaInfos = map.get(serviceName);
+        return lb.select(serviceMetaInfos);
+    }
+
+    @Override
+    public void unregister(ServiceMetaInfo serviceMetaInfo) {
+        List<ServiceMetaInfo> serviceMetaInfos = map.getOrDefault(serviceMetaInfo.getServiceName(), new ArrayList<>());
+        serviceMetaInfos.remove(serviceMetaInfo);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

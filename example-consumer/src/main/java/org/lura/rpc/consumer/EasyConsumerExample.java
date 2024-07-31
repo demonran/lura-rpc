@@ -8,7 +8,7 @@ import org.lura.rpc.proxy.ServiceProxyFactory;
 public class EasyConsumerExample {
     public static void main(String[] args) {
 
-        RpcApplication.init();
+//        RpcApplication.init();
 
         UserService userService = ServiceProxyFactory.create(UserService.class);
         User user = new User();

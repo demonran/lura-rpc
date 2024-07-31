@@ -7,8 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 public interface Registry {
 
-    default void init(RpcConfig config) {
-    }
+    void init(RpcConfig config);
 
     void register(ServiceMetaInfo serviceMetaInfo) throws Exception;
 

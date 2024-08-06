@@ -29,8 +29,7 @@
 - [ ] config-file
 
 #### 多种负载均衡策略支持
-- [x] random
-- [ ] round-robin
+- [x] random- [x] round-robin
 - [ ] consistent-hash
 
 #### 插件化支持

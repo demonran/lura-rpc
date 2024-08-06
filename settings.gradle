@@ -1,6 +1,10 @@
 rootProject.name = 'lura-rpc'
-include 'example-common'
-include 'example-provider'
-include 'example-consumer'
 include 'lura-rpc-core'
+include 'lura-rpc-grpc'
+
+
+
+file("example").eachDir {
+    include "example:${it.name}"
+}
 
